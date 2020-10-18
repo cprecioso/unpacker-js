@@ -1,0 +1,12 @@
+{
+  "extends": "@cprecioso/tsconfig/node",
+  "compilerOptions": {
+    "target": "ES2019",
+    "rootDir": "src",
+    "outDir": "lib",
+    "experimentalDecorators": true,
+    "declaration": true,
+    "removeComments": false
+  },
+  "include": ["src/**/*", "types/**/*"]
+}
