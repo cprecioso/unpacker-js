@@ -15,11 +15,13 @@ export class FieldStruct<T extends {}, U extends {}> extends StructUnpacker<
     super(fields<T, U>(_innerUnpacker, _pairs))
   }
 
-  protected _field(name: string | null, fieldUnpacker: Unpacker<any>) {
-    return new FieldStruct(
-      this._innerUnpacker,
-      // @ts-expect-error
-      [...this._pairs, [name, fieldUnpacker]]
-    )
+  protected _field(
+    name: string | null,
+    fieldUnpacker: Unpacker<any>
+  ): FieldStruct<T, U & any> {
+    return new FieldStruct(this._innerUnpacker, [
+      ...this._pairs,
+      [name, fieldUnpacker],
+    ])
   }
 }

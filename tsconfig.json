@@ -1,10 +1,8 @@
 {
-  "extends": "@cprecioso/tsconfig/node",
+  "extends": "@cprecioso/tsconfig/esm",
   "compilerOptions": {
-    "target": "ES2019",
+    "target": "ES2020",
     "rootDir": "src",
-    "outDir": "lib",
-    "experimentalDecorators": true,
     "declaration": true,
     "removeComments": false
   },
