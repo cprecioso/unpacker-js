@@ -20,9 +20,7 @@ const arEntry = u
   .check(u.magic([0x60, 0x0a]))
   .after("contents", ({ value }) => u.raw(value.fileSize))
 
-const ar = u
+export const arUnpacker = u
   .struct()
   .check(u.magic("!<arch>\n", "ascii"))
   .field("files", u.array(arEntry))
-
-export { ar }
