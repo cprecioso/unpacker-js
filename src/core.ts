@@ -12,8 +12,12 @@ export const unpackerSymbol = /** #__PURE__ */ Symbol("unpacker")
 export interface UnpackerObject<T> {
   [unpackerSymbol]: UnpackerFunction<T>
 }
+
 const isUnpackerObject = (v: any): v is UnpackerObject<any> =>
   v[unpackerSymbol] && typeof v[unpackerSymbol] === "function"
+
+export const isUnpacker = (v: any): v is Unpacker<any> =>
+  typeof v === "function" || isUnpackerObject(v)
 
 export type Unpacker<T> = UnpackerFunction<T> | UnpackerObject<T>
 
