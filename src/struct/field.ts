@@ -1,6 +1,7 @@
 import { Unpacker } from "../core"
 import { Entry, fields, ObjectWithUnpackers } from "../field"
 import { StructUnpacker } from "./base"
+export { StructUnpacker } from "./base"
 
 export class FieldStruct<T extends {}, U extends {}> extends StructUnpacker<
   T & U
