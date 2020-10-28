@@ -18,7 +18,7 @@ const arEntry = u
   .field("fileMode", asciiEncodedNumber(8, 8))
   .field("fileSize", asciiEncodedNumber(10))
   .check(u.magic([0x60, 0x0a]))
-  .after("contents", ({ value }) => u.buffer(value.fileSize))
+  .after("contents", ({ value }) => u.raw(value.fileSize))
 
 const ar = u
   .struct()
