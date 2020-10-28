@@ -1,8 +1,9 @@
-import { Unpacker } from "./core"
+import { isUnpacker, Unpacker } from "./core"
+import { after } from "./util"
 
-export const string = (
-  bytes?: number,
-  encoding: BufferEncoding = "utf-8"
+const staticLengthString = (
+  bytes: number | undefined,
+  encoding: BufferEncoding
 ): Unpacker<string> => (buf, begin) => {
   const value = buf.toString(
     encoding,
@@ -13,5 +14,21 @@ export const string = (
   return { bytes, value }
 }
 
-export const ascii = (bytes?: number) => string(bytes, "ascii")
-export const utf8 = (bytes?: number) => string(bytes, "utf-8")
+const dynamicLengthString = (
+  numberUnpacker: Unpacker<number>,
+  encoding: BufferEncoding
+): Unpacker<string> =>
+  after(numberUnpacker, ({ value: n }) => staticLengthString(n, encoding))
+
+export const string = (
+  length?: number | Unpacker<number>,
+  encoding: BufferEncoding = "utf-8"
+): Unpacker<string> =>
+  isUnpacker(length)
+    ? dynamicLengthString(length, encoding)
+    : staticLengthString(length, encoding)
+
+export const ascii = (length?: number | Unpacker<number>) =>
+  string(length, "ascii")
+export const utf8 = (length?: number | Unpacker<number>) =>
+  string(length, "utf-8")
